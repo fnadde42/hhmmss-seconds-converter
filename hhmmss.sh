@@ -21,18 +21,18 @@ function main() {
             (>&2 usage)
             ;;
         1)
-            seconds2hhmmss "${times[0]}"
+            seconds_to_hh_mm_ss "${times[0]}"
             ;;
         2)
             mmss2seconds "${times[0]}" "${times[1]}"
             ;;
         3)
-            hhmmss2seconds "${times[0]}" "${times[1]}" "${times[2]}"
+            hh_mm_ss_to_seconds "${times[0]}" "${times[1]}" "${times[2]}"
             ;;
     esac
 }
 
-function seconds2hhmmss {
+function seconds_to_hh_mm_ss {
     seconds="$1"
 
     hours="$(echo "scale=0; $seconds / 3600" | bc -l)"
@@ -49,7 +49,7 @@ function mmss2seconds {
     echo "( $minutes * 60 ) + $seconds" | bc -l
 }
 
-function hhmmss2seconds {
+function hh_mm_ss_to_seconds {
     hours="$1"
     minutes="$2"
     seconds="$3"
