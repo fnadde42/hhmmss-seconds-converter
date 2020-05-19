@@ -39,7 +39,7 @@ function seconds2hhmmss {
     minutes="$(echo "scale=0; ( $seconds - $hours * 3600 ) / 60" | bc -l)"
     seconds="$(echo "$seconds - (( $hours * 3600 ) + ( $minutes * 60 ))" | bc -l)"
 
-    echo "$(printf "%02g" $hours):$(printf "%02g" $minutes):$(printf "%02g" $seconds)"
+    echo "$(printf "%02g" $hours):$(printf "%02g" $minutes):$(printf "%02g" ${seconds%.*})$(printDecimals $seconds)"
 }
 
 function mmss2seconds {
@@ -55,6 +55,13 @@ function hhmmss2seconds {
     seconds="$3"
 
     echo "( $hours * 3600 ) + ( $minutes * 60 ) + $seconds" | bc -l
+}
+
+function printDecimals {
+    seconds="$1"
+    if [[ $seconds == *"."* ]]; then
+         echo ".${seconds#*.}"
+    fi
 }
 
 function fatalMessage {
