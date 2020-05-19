@@ -1,15 +1,25 @@
 #!/bin/bash
 # -*- coding: utf-8 -*-
 
-IFS=':' read -r -a times <<< "$1"
+function usage {
+    echo -e "\
+Usage: hhmmss: The converter between hh:mm:ss and seconds.
 
-if [[ ${#times[@]} -gt 3 ]]; then
-    echo "Too many arguments"
-    exit 1
-fi
+             Convert 300 seconds to hh:mm:ss (result: 00:05:00)
+               hhmmss 300
+             Convert 12 minutes and 30 seconds to seconds (result: 750)
+               hhmmss 12:30
+             Convert 5 hours, 37 minutes, 12 seconds to seconds (result: 20232)
+               hhmmss 5:37:12
+"
+}
+
 
 function main() {
     case "${#times[@]}" in
+        0)
+            (>&2 usage)
+            ;;
         1)
             seconds2hhmmss "${times[0]}"
             ;;
@@ -46,5 +56,21 @@ function hhmmss2seconds {
 
     echo "( $hours * 3600 ) + ( $minutes * 60 ) + $seconds" | bc -l
 }
+
+function fatalMessage {
+    errorMessage="$1"
+    (>&2 echo "FATAL: $errorMessage")
+    (>&2 usage)
+}
+
+if (( "$#" > 1 )); then
+    fatalMessage "Too many arguments!"
+fi
+
+IFS=':' read -r -a times <<< "$1"
+
+if (( ${#times[@]} > 3 )); then
+    fatalMessage "Malformed time format!"
+fi
 
 main
