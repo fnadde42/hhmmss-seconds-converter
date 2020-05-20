@@ -62,4 +62,9 @@ function test_mm_ss_to_seconds
     assertEquals '20:34.56789 seconds returns 1234.56789' "1234.56789" "$(mm_ss_to_seconds 20 34.56789)"
 }
 
+function test_application_expect_errors
+{
+    assertEquals 'Too many arguments' "$(./hhmmss.sh 01:00:00 02:00:00)"
+}
+
 source lib/shunit2
