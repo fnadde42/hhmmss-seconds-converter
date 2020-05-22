@@ -6,12 +6,12 @@ function usage
     echo -e "\
 Usage: hhmmss: The converter between hh:mm:ss and seconds.
 
-             Convert 300 seconds to hh:mm:ss (result: 00:05:00)
-               hhmmss 300
-             Convert 12 minutes and 30 seconds to seconds (result: 750)
-               hhmmss 12:30
-             Convert 5 hours, 37 minutes, 12 seconds to seconds (result: 20232)
-               hhmmss 5:37:12
+  Convert 300 seconds to hh:mm:ss (result: 00:05:00)
+    hhmmss 300
+  Convert 12 minutes and 30 seconds to seconds (result: 750)
+    hhmmss 12:30
+  Convert 5 hours, 37 minutes, 12 seconds to seconds (result: 20232)
+    hhmmss 5:37:12
 "
 }
 
